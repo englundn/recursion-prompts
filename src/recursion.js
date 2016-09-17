@@ -187,21 +187,21 @@ var multiply = function(x, y) {
 // JavaScript's Math object.
 var divide = function(x, y) {
 
-	if (y === 0) {
-		return NaN;
-	}
-	if (x === 0) {
-		return 0;
-	}
-	if (x > 0) {
-		if (y > 0) {
-			if (x > y) {
-				return 1 + divide(x - y, y);
-			}
-			return divide(x * 10, y)2
-		}
-	}
-	}
+	// if (y === 0) {
+	// 	return NaN;
+	// }
+	// if (x === 0) {
+	// 	return 0;
+	// }
+	// if (x > 0) {
+	// 	if (y > 0) {
+	// 		if (x > y) {
+	// 			return 1 + divide(x - y, y);
+	// 		}
+	// 		return divide(x * 10, y) * .1;
+	// 	}
+	// }
+	// }
 
 };
 
@@ -211,6 +211,19 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+
+	if (x <= 0 || y <= 0) {
+		return null;
+	}
+
+	for (var i = 2; i < Math.min(x, y) + 1; i++) {
+		if (x % i === 0 && y % i === 0) {
+			return i * gcd(x/i, y/i);
+		}
+	}
+
+	return 1;
+
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -219,32 +232,67 @@ var gcd = function(x, y) {
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+
+	if (str1.length === 0 && str2.length === 0) {
+		return true;
+	} else if (str1.length !== str2.length) {
+		return false;
+	} else {
+		if (str1[0] === str2[0]) {
+			return compareStr(str1.slice(1), str2.slice(1));
+		}
+	}
+
+	return false;
+
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+
+	if (str.length) {
+		return [str[0]].concat(createArray(str.slice(1)));
+	}
+
+	return [];
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function (array) {
+	if (array.length) {
+		return [array[array.length - 1]].concat(reverseArr(array.slice(0, array.length - 1)));
+	}
+
+	return [];
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+	if (length) {
+		return [value].concat(buildList(value, length - 1));
+	}
+
+	return [];
 };
 
 // 19. Count the occurence of a value inside a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+	if (array.indexOf(value) > -1) {
+		return 1 + countOccurrence(array.slice(array.indexOf(value) + 1), value);
+	} 
+
+	return 0;
 };
 
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+	
 };
 
 // 21. Write a function that counts the number of times a key occurs in an object.

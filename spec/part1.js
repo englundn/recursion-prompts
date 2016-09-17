@@ -558,17 +558,17 @@
         expect(gcd(7, -36)).to.equal(null);
         expect(gcd(-10, -58)).to.equal(null);
         expect(gcd(-92, -5)).to.equal(null);
-        // expect(gcd(0, 0)).to.equal(null);
-        // expect(gcd(0, 5)).to.equal(null);
-        // expect(gcd(5, 0)).to.equal(null);
-        // expect(gcd(-5, 0)).to.equal(null);
-        // expect(gcd(0, -5)).to.equal(null);
+        expect(gcd(0, 0)).to.equal(null);
+        expect(gcd(0, 5)).to.equal(null);
+        expect(gcd(5, 0)).to.equal(null);
+        expect(gcd(-5, 0)).to.equal(null);
+        expect(gcd(0, -5)).to.equal(null);
       });
 
       it('should use recursion by calling self', function () {
         var originalGcd = gcd;
         gcd = sinon.spy(gcd);
-        gcd(17, 5);
+        gcd(18, 4);
         expect(gcd.callCount).to.be.above(1);
         gcd = originalGcd;
       });
@@ -597,7 +597,7 @@
       it('should use recursion by calling self', function () {
         var originalCompareStr = compareStr;
         compareStr = sinon.spy(compareStr);
-        compareStr('house', 'houses');
+        compareStr('house', 'housy');
         expect(compareStr.callCount).to.be.above(1);
         compareStr = originalCompareStr;
       });
