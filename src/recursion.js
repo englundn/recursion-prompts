@@ -292,7 +292,10 @@ var countOccurrence = function(array, value) {
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
-	
+	if (array.length) {
+		return [callback(array[0])].concat(rMap(array.slice(1),callback));
+	}
+	return [];
 };
 
 // 21. Write a function that counts the number of times a key occurs in an object.
@@ -300,6 +303,17 @@ var rMap = function(array, callback) {
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
 var countKeysInObj = function(obj, key) {
+	var counter = 0
+	if (typeof obj === 'object') {
+		for (var testKey in obj) {
+			if (testKey === key) {
+				counter += 1 + countKeysInObj(obj[testKey], key);
+			} else {
+				counter += countKeysInObj(obj[testKey], key);
+			}
+		}
+	}
+	return counter;
 };
 
 // 22. Write a function that counts the number of times a value occurs in an object.
@@ -307,11 +321,28 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+		var counter = 0
+	if (typeof obj === 'object') {
+		for (var testKey in obj) {
+			if (obj[testKey] === value) {
+				counter ++;
+			} else {
+				counter += countValuesInObj(obj[testKey], value);
+			}
+		}
+	}
+	return counter;
 };
 
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, key, newKey) {
+	var tempObj = {};
+
+	// if (typeof obj === 'object') {
+	// 	for (var testKey in obj) {
+	// 		if (testKey === key) {
+
 };
 
 // 24. Get the first n Fibonacci numbers.  In the Fibonacci Sequence, each subsequent
@@ -320,6 +351,15 @@ var replaceKeysInObj = function(obj, key, newKey) {
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
 var fibonacci = function(n) {
+	if (n < 1) {
+		return null;
+	}
+	if (n === 1) {
+		return [0, 1];
+	}
+
+	var prev = fibonacci(n-1); 
+	return prev.concat(arraySum(prev.slice(prev.length-2)));
 };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -328,12 +368,20 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+	if (n < 0) {
+		return null;
+	};
+	if (n < 2) {
+		return n;
+	}
+	return nthFibo(n-1) + nthFibo(n-2);
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+
 };
 
 // 27. Given an array of strings, capitalize the first letter of each index.
